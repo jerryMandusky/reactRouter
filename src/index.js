@@ -2,14 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import App from './components/app';
+//import App from './components/app'; - used a mainscource for bootstappin applicaion in previous projects
 import reducers from './reducers';
+import PostsIndex from './components/posts_index';
+import promise from 'redux-promise';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
+    <BrowserRouter>
+    <div>
+      <Route path="/" component={PostsIndex} />
+      </div>
+    </BrowserRouter>
   </Provider>
   , document.querySelector('.container'));
